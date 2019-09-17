@@ -1,7 +1,7 @@
 <?php
 
 $databaseHost = 'localhost';
-$databaseName = 'product';
+$databaseName = 'aics_db';
 $databaseUsername = 'root';
 $databasePassword = '';
 

@@ -9,28 +9,36 @@
 include_once("config.php");
 
 if(isset($_POST['Submit'])) {	
-	$name = $_POST['name'];
-	$description = $_POST['description'];
-	$price = $_POST['price'];
-	$quantity = $_POST['quantity'];
+	$studentid = $_POST['studentid'];
+	$fname = $_POST['fname'];
+	$lname = $_POST['lname'];
+	$gender = $_POST['gender'];
+	$birthdate = $_POST['birthdate'];
+	$address = $_POST['address'];
+	$contact = $_POST['contact'];
 		
 	// checking empty fields
-	if(empty($name) || empty($description) || empty($price) || empty($quantity)) {
+	if(empty($fname) || empty($lname) || empty($gender) || empty($birthdate) || empty($address) || empty($contact)) {
 				
-		if(empty($name)) {
-			echo "<font color='red'>Name field is empty.</font><br/>";
+		if(empty($fname)) {
+			echo "<font color='red'>First Name field is empty.</font><br/>";
 		}
 		
-		if(empty($description)) {
-			echo "<font color='red'>Description field is empty.</font><br/>";
+		if(empty($lname)) {
+			echo "<font color='red'>Last Name field is empty.</font><br/>";
+		}
+		if(empty($gender)) {
+			echo "<font color='red'>Gender field is empty.</font><br/>";
+		}
+		if(empty($birthdate)) {
+			echo "<font color='red'>Birth Date field is empty.</font><br/>";
 		}
 		
-		if(empty($price)) {
-			echo "<font color='red'>Price field is empty.</font><br/>";
+		if(empty($address)) {
+			echo "<font color='red'>Address field is empty.</font><br/>";
 		}
-
-		if(empty($quantity)) {
-			echo "<font color='red'>Quantity field is emply.</font><br/>";
+		if(empty($contact)) {
+			echo "<font color='red'>Contact field is empty.</font><br/>";
 		}
 		
 		//link to the previous page
@@ -39,14 +47,16 @@ if(isset($_POST['Submit'])) {
 		// if all the fields are filled (not empty) 
 			
 		//insert data to database		
-		$sql = "INSERT INTO product(name, description, price, quantity) VALUES(:name, :description, :price, :quantity)";
+		$sql = "INSERT INTO tbl_student(fname, lname, gender, birthdate, address, contact) VALUES(:fname, :lname, :gender, :birthdate, :address, :contact)";
 		$query = $dbConn->prepare($sql);
 				
-		$query->bindparam(':name', $name);
-		$query->bindparam(':description', $description);
-		$query->bindparam(':price', $price);
-		$query->bindparam(':quantity',$quantity); 
-		$query->execute();
+		$query->bindparam(':fname', $fname);
+		$query->bindparam(':lname', $lname);
+		$query->bindparam(':gender', $gender);
+		$query->bindparam(':birthdate', $birthdate);
+		$query->bindparam(':address', $address);
+		$query->bindparam(':contact', $contact);
+		$query->execute(array(':fname' => $fname, ':lname' => $lname, ':gender' => $gender, ':birthdate' => $birthdate,':address' => $address, ':contact' => $contact));
 		
 		// Alternative to above bindparam and execute
 		// $query->execute(array(':name' => $name, ':email' => $email, ':age' => $age));

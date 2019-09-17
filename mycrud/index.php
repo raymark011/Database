@@ -3,7 +3,7 @@
 include_once("config.php");
 
 //fetching data in descending order (lastest entry first)
-$result = $dbConn->query("SELECT * FROM product ORDER BY id DESC");
+$result = $dbConn->query("SELECT * FROM tbl_student ORDER BY studentid DESC");
 ?>
 
 <html>
@@ -17,20 +17,24 @@ $result = $dbConn->query("SELECT * FROM product ORDER BY id DESC");
 	<table width='80%' border=0>
 
 	<tr bgcolor='#CCCCCC'>
-		<td>Product Name</td>
-		<td>Product Description</td>
-		<td>Product Price</td>
-		<td>Product Quantity</td>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Gender</td>
+		<td>Birth Date</td>
+		<td>Address</td>
+		<td>Contact</td>
 		<td>Update</td>
 	</tr>
 	<?php 	
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) { 		
 		echo "<tr>";
-		echo "<td>".$row['name']."</td>";
-		echo "<td>".$row['description']."</td>";
-		echo "<td>".$row['price']."</td>";
-		echo "<td>".$row['quantity']."</td>";	
-		echo "<td><a href=\"edit.php?id=$row[id]\">Edit</a> | <a href=\"delete.php?id=$row[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";		
+		echo "<td>".$row['fname']."</td>";
+		echo "<td>".$row['lname']."</td>";
+		echo "<td>".$row['gender']."</td>";	
+		echo "<td>".$row['birthdate']."</td>";	
+		echo "<td>".$row['address']."</td>";
+		echo "<td>".$row['contact']."</td>";
+		echo "<td><a href=\"edit.php?id=$row[studentid]\">Edit</a> | <a href=\"delete.php?id=$row[studentid]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";		
 	}
 	?>
 	</table>

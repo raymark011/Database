@@ -3,13 +3,13 @@
 include("config.php");
 
 //getting id of the data from url
-$id = $_GET['studentid'];
+$id = $_GET['id'];
 
 //deleting the row from table
-$sql = "DELETE FROM tbl_student WHERE studentid=:studentid";
+$sql = "DELETE FROM tbl_class WHERE id=:id";
 $query = $dbConn->prepare($sql);
-$query->execute(array(':studentid' => $studentid));
+$query->execute(array(':id' => $id));
 
 //redirecting to the display page (index.php in our case)
-header("Location:index.php");
+header("Location:index2.php");
 ?>
