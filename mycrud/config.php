@@ -1,10 +1,8 @@
 <?php
-
 $databaseHost = 'localhost';
-$databaseName = 'aics_db';
+$databaseName = 'product';
 $databaseUsername = 'root';
 $databasePassword = '';
-
 try {
 	// http://php.net/manual/en/pdo.connections.php
 	$dbConn = new PDO("mysql:host={$databaseHost};dbname={$databaseName}", $databaseUsername, $databasePassword);

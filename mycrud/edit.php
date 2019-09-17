@@ -1,53 +1,43 @@
 <?php
 // including the database connection file
 include_once("config.php");
-
 if(isset($_POST['update']))
 {	
-	$studentid=$_POST['studentid'];
-	$fname=$_POST['fname'];
-	$lname=$_POST['lname'];
-	$gender=$_POST['gender'];
-	$address=$_POST['address'];
-	$contact=$_POST['contact'];
+	$id = $_POST['id'];
+	
+	$name=$_POST['name'];
+	$description=$_POST['description'];
+	$price=$_POST['price'];
+	$quantity=$_POST['quantity'];
 	
 	// checking empty fields
-	if(empty($fname) || empty($lname) || empty($gender) || empty($birthdate) || empty($address) || empty($contact)) {
-				
-		if(empty($fname)) {
-			echo "<font color='red'>First Name field is empty.</font><br/>";
+	if(empty($name) || empty($description) || empty($price) || empty($quantity)) {	
+			
+		if(empty($name)) {
+			echo "<font color='red'>Name field is empty.</font><br/>";
 		}
 		
-		if(empty($lname)) {
-			echo "<font color='red'>Last Name field is empty.</font><br/>";
-		}
-		if(empty($gender)) {
-			echo "<font color='red'>Gender field is empty.</font><br/>";
+		if(empty($description)) {
+			echo "<font color='red'>Description field is empty.</font><br/>";
 		}
 		
-		if(empty($birthdate)) {
-			echo "<font color='red'>Birth Date field is empty.</font><br/>";
+		if(empty($price)) {
+			echo "<font color='red'>Price field is empty.</font><br/>";
 		}
-		
-		if(empty($address)) {
-			echo "<font color='red'>Address field is empty.</font><br/>";
-		}
-		if(empty($contact)) {
-			echo "<font color='red'>Contact field is empty.</font><br/>";
+		if(empty($quantity)) {
+			echo "<font color='red'>Quantity field is emply.</font><br/>";
 		}
 	} else {	
 		//updating the table
-		$sql = "UPDATE tbl_student SET fname=:fname, lname=:lname, gender=:gender, birthdate=:birthdate, address=:address, contact=:contact WHERE studentid=:studentid";
+		$sql = "UPDATE product SET name=:name, description=:description, price=:price, quantity=:quantity WHERE id=:id";
 		$query = $dbConn->prepare($sql);
-		
-		$query->bindparam(':studentid', $studentid);
-		$query->bindparam(':fname', $fname);
-		$query->bindparam(':lname', $lname);
-		$query->bindparam(':gender', $gender);
-		$query->bindparam(':birthdate', $birthdate);
-		$query->bindparam(':address', $address);
-		$query->bindparam(':contact', $contact);
-		$query->execute(array(':studentid' => $studentid, ':fname' => $fname, ':lname' => $lname, ':gender' => $gender, ':birthdate' => $birthdate, ':address' => $address, ':contact' => $contact));
+				
+		$query->bindparam(':id', $id);
+		$query->bindparam(':name', $name);
+		$query->bindparam(':description', $description);
+		$query->bindparam(':price', $price);
+		$query->bindparam(':quantity',$quantity);
+		$query->execute(array(':id' => $id, ':name' => $name, ':description' => $description, ':price' => $price, ':quantity' => $quantity));
 		
 		// Alternative to above bindparam and execute
 		// $query->execute(array(':id' => $id, ':name' => $name, ':email' => $email, ':age' => $age));
@@ -59,21 +49,17 @@ if(isset($_POST['update']))
 ?>
 <?php
 //getting id from url
-$id = $_GET['studentid'];
-
+$id = $_GET['id'];
 //selecting data associated with this particular id
-$sql = "SELECT * FROM tbl_student WHERE studentid=:studentid";
+$sql = "SELECT * FROM product WHERE id=:id";
 $query = $dbConn->prepare($sql);
-$query->execute(array(':studentid' => $studentid));
-
+$query->execute(array(':id' => $id));
 while($row = $query->fetch(PDO::FETCH_ASSOC))
 {
-	$fname = $row['fname'];
-	$lname = $row['lname'];
-	$gender = $row['gender'];
-	$birthdate = $row['birthdate'];
-	$address = $row['address'];
-	$contact = $row['contact'];
+	$name = $row['name'];
+	$description = $row['description'];
+	$price = $row['price'];
+	$quantity = $row['quantity'];
 }
 ?>
 <html>
@@ -84,35 +70,27 @@ while($row = $query->fetch(PDO::FETCH_ASSOC))
 <body>
 	<a href="index.php">Home</a>
 	<br/><br/>
-	
+
 	<form name="form1" method="post" action="edit.php">
 		<table border="0">
 			<tr> 
-				<td>First Name</td>
-				<td><input type="text" name="fname" value="<?php echo $fname;?>"></td>
+				<td>Name</td>
+				<td><input type="text" name="name" value="<?php echo $name;?>"></td>
 			</tr>
 			<tr> 
-				<td>Last Name</td>
-				<td><input type="text" name="lname" value="<?php echo $lname;?>"></td>
+				<td>Description</td>
+				<td><input type="text" name="description" value="<?php echo $description;?>"></td>
 			</tr>
 			<tr> 
-				<td>Gender</td>
-				<td><input type="text" name="gender" value="<?php echo $gender;?>"></td>
+				<td>Price</td>
+				<td><input type="text" name="price" value="<?php echo $price;?>"></td>
 			</tr>
-			<tr> 
-				<td>Birth Date</td>
-				<td><input type="text" name="birthdate" value="<?php echo $birthdate;?>"></td>
-			</tr>
-			<tr> 
-				<td>Address</td>
-				<td><input type="text" name="address" value="<?php echo $address;?>"></td>
-			</tr>
-			<tr> 
-				<td>Contact</td>
-				<td><input type="text" name="contact" value="<?php echo $contact;?>"></td>
+			<tr>r 
+				<td>quantity</td>
+				<td><input type="text" name="quantity" value="<?php echo $quantity;?>"></td>
 			</tr>
 			<tr>
-				<td><input type="hidden" name="studentid" value=<?php echo $_GET['studentid'];?>></td>
+				<td><input type="hidden" name="id" value=<?php echo $_GET['id'];?>></td>
 				<td><input type="submit" name="update" value="Update"></td>
 			</tr>
 		</table>

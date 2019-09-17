@@ -9,4 +9,4 @@ CREATE TABLE `product` (
   `price` varchar(255) NOT NULL,
   `quantity` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-);
+); 
